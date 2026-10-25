@@ -1,0 +1,7 @@
+service_line_id,service_line_name,family,unit_type,sort_order
+TRANSLATION,Document Translation,WRITTEN,WORD,1
+LOCALIZATION,Localization,WRITTEN,WORD,2
+ALT_FORMAT,Alternate Formats,WRITTEN,WORD,3
+OPI,Over-the-Phone Interpretation,INTERPRETATION,MINUTE,4
+VRI,Video Remote Interpretation,INTERPRETATION,MINUTE,5
+ONSITE,On-site Interpretation,INTERPRETATION,MINUTE,6

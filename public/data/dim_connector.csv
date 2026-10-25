@@ -1,0 +1,15 @@
+connector_id,connector_name,category,protocol,simulated_endpoint,sim_environment,is_simulated
+CON-01,Simulated TMS Job Feed,TMS,WEBHOOK,https://sim-simulated-tms-job-feed.example.invalid/v1,SIM_PROD,true
+CON-02,Simulated TMS Asset Sync,TMS,SFTP,https://sim-simulated-tms-asset-sync.example.invalid/v1,SIM_PROD,true
+CON-03,Mock CRM Opportunity Sync,CRM,REST,https://sim-mock-crm-opportunity-sync.example.invalid/v1,SIM_PROD,true
+CON-04,Mock ERP Ledger Export,FINANCE,SOAP,https://sim-mock-erp-ledger-export.example.invalid/v1,SIM_PROD,true
+CON-05,Mock Billing Gateway,FINANCE,REST,https://sim-mock-billing-gateway.example.invalid/v1,SIM_PROD,true
+CON-06,Simulated Telephony Gateway,TELEPHONY,SIP,https://sim-simulated-telephony-gateway.example.invalid/v1,SIM_PROD,true
+CON-07,Simulated Call Routing Events,TELEPHONY,WEBHOOK,https://sim-simulated-call-routing-events.example.invalid/v1,SIM_PROD,true
+CON-08,Mock Video Session Service,VIDEO,WEBSOCKET,https://sim-mock-video-session-service.example.invalid/v1,SIM_PROD,true
+CON-09,Simulated Workforce Roster Feed,HR,SFTP,https://sim-simulated-workforce-roster-feed.example.invalid/v1,SIM_PROD,true
+CON-10,Mock MT Engine API,AI_MT,REST,https://sim-mock-mt-engine-api.example.invalid/v1,SIM_PROD,true
+CON-11,Mock QE Scoring Service,AI_MT,REST,https://sim-mock-qe-scoring-service.example.invalid/v1,SIM_STAGING,true
+CON-12,Simulated Quality Tool Sync,QUALITY,WEBHOOK,https://sim-simulated-quality-tool-sync.example.invalid/v1,SIM_PROD,true
+CON-13,Mock Data Lake Loader,DATA,SFTP,https://sim-mock-data-lake-loader.example.invalid/v1,SIM_PROD,true
+CON-14,Simulated BI Export,DATA,REST,https://sim-simulated-bi-export.example.invalid/v1,SIM_STAGING,true

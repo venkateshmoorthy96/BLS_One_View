@@ -1,0 +1,15 @@
+okr_id,pillar,objective,key_result,owner_id,metric_kpi_id,baseline_value,target_value,current_value,progress,status,target_date
+OKR-001,Grow profitably,Increase recognised revenue,YTD recognised revenue vs plan (USD),OWN-001,REV,860941.51,1087935.59,1072967.14,0.9341,ON_TRACK,2026-12-31
+OKR-002,Grow profitably,Retain and expand the client base,Net revenue retention,OWN-002,NRR,1.030849,1.05,1.108575,1.0,COMPLETE,2026-12-31
+OKR-003,Grow profitably,Win new logos,New logos onboarded YTD,OWN-003,,3.0,7.0,2.0,0.0,OFF_TRACK,2026-12-31
+OKR-004,Protect margin,Hold gross margin,Gross margin,OWN-002,GM,0.418174,0.42,0.421046,1.0,COMPLETE,2026-12-31
+OKR-005,Protect margin,Grow EBITDA,EBITDA margin,OWN-001,EBITDA_M,0.131646,0.15,0.148395,0.9126,ON_TRACK,2026-12-31
+OKR-006,Protect margin,Reduce vendor dependency,Vendor COGS share,OWN-005,VENDOR_COGS_SHARE,0.50085,0.5,0.495876,1.0,COMPLETE,2026-12-31
+OKR-007,Deliver reliably,On-time written delivery,Translation on-time delivery,OWN-007,TR_OTD,0.906383,0.96,0.938436,0.5978,AT_RISK,2026-12-31
+OKR-008,Deliver reliably,Faster interpreter connection,OPI average speed to answer (s),OWN-009,OPI_ASA,37.963856,25.0,37.905768,0.0045,OFF_TRACK,2026-12-31
+OKR-009,Deliver reliably,Higher on-demand coverage,On-demand fill rate,OWN-010,FILL_ON_DEMAND,0.961897,0.97,0.959211,0.0,OFF_TRACK,2026-12-31
+OKR-010,Raise quality,Consistent linguistic quality,Review pass rate,OWN-011,REVIEW_PASS,0.924812,0.95,0.926941,0.0845,OFF_TRACK,2026-12-31
+OKR-011,Raise quality,Fewer client rejections,Client rejection rate,OWN-011,REJECTION_RATE,0.019149,0.015,0.011647,1.0,COMPLETE,2026-12-31
+OKR-012,Scale with AI,Grow AI-assisted workflows,AI-touched word share,OWN-012,AI_SHARE,0.354258,0.55,0.439649,0.4362,AT_RISK,2026-12-31
+OKR-013,Scale with AI,Trust in quality estimation,MTQE acceptance,OWN-012,MTQE_ACCEPT,0.809936,0.8,0.798325,1.0,COMPLETE,2026-12-31
+OKR-014,Build the team,Healthy PM workload,PM utilisation,OWN-013,PM_UTIL,0.627673,0.85,0.838253,0.9472,ON_TRACK,2026-12-31

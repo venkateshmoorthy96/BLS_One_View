@@ -1,0 +1,1 @@
+﻿invoice_line_id,invoice_id,client_id,service_line_id,revenue_month_id,invoice_date,due_date,currency,amount_original,fx_usd_per_unit,amount_usd,adjustment_fraction

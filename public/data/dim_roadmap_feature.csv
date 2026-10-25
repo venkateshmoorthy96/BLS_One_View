@@ -1,0 +1,13 @@
+feature_id,title,description,category,status,target_quarter,priority,seed_votes
+FEA-001,Live connector onboarding wizard,Guided setup for connecting a real TMS or CRM (concept).,Integration,PLANNED,2027-Q1,P1,41
+FEA-002,Client-facing quality portal,Share LQA outcomes and corrective actions with clients.,Quality,UNDER_REVIEW,2027-Q2,P2,27
+FEA-003,Dispatch optimisation,Recommend interpreter assignments to cut speed-to-answer.,Interpretation,PLANNED,2027-Q1,P1,52
+FEA-004,Scenario library,Save and compare named what-if scenarios.,Forecasting,IN_PROGRESS,2026-Q4,P1,36
+FEA-005,Role-based dashboards,"Tailor KPI sets to executive, sales and operations roles.",Platform,UNDER_REVIEW,2027-Q2,P2,22
+FEA-006,Translation-memory insights,Surface leverage opportunities by client and domain.,AI,PLANNED,2027-Q1,P2,31
+FEA-007,Automated board pack,One-click monthly executive summary export.,Reporting,IN_PROGRESS,2026-Q4,P1,45
+FEA-008,Anomaly alerts,Statistical alerts on margin and OTD drift.,Risk,PLANNED,2027-Q2,P2,19
+FEA-009,Data catalog search,"Search definitions, lineage and owners.",Governance,DELIVERED,2026-Q3,P3,14
+FEA-010,Mobile summary view,Compact KPI summary for phones.,Platform,DELIVERED,2026-Q2,P3,17
+FEA-011,Vendor scorecards,"Combine quality, cost and capacity per supplier.",Workforce,UNDER_REVIEW,2027-Q3,P2,24
+FEA-012,FX exposure drill-down,Currency exposure by client and invoice.,Finance,PLANNED,2027-Q1,P3,18

@@ -1,0 +1,7 @@
+feedback_id,category,rating,comment,role_label,submitted_date
+FDB-001,General,5,Clear overview; the reconciliation between tabs is helpful.,Operations lead (fictional),2026-09-12
+FDB-002,Finance,4,Would like a cash-flow view next to the margin trend.,Finance analyst (fictional),2026-09-14
+FDB-003,Capacity,5,The language-pair heatmap makes the bottleneck obvious.,Vendor manager (fictional),2026-09-16
+FDB-004,AI,4,Please show the assumptions beside every savings figure.,Product owner (fictional),2026-09-18
+FDB-005,Usability,3,"Filters are great, but the roster table needs column chooser.",Account manager (fictional),2026-09-21
+FDB-006,General,5,Good that everything is clearly marked as synthetic.,Data steward (fictional),2026-09-23

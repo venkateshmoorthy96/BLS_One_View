@@ -1,0 +1,98 @@
+@import "tailwindcss";
+
+/* BIG Language Solutions-inspired theme. All colours live here; components only use these tokens. */
+:root {
+  color-scheme: light;
+
+  /* Brand palette */
+  --color-brand-red: #E9232B;
+  --color-brand-red-strong: #D41E26; /* white text on this passes WCAG AA (5:1); plain brand red is 4.4:1 */
+  --color-navy: #20384A;
+  --color-page-bg: #F7F3EF;
+  --color-card-bg: #FFFFFF;
+  --color-brand-yellow: #FFCC00;
+  --color-chart-teal: #29AFC7;
+  --color-success: #168B72;
+  --color-danger: #E9232B;
+  --color-text-secondary: #617184;
+  --color-border: #E3E7EB;
+  --color-chart-grid: #E5EAEE;
+  --color-sidebar-hover: #29475C;
+
+  /* Semantic tokens used across the app (names kept so every page inherits the theme) */
+  --bg: var(--color-page-bg);
+  --surface: var(--color-card-bg);
+  --surface-2: #F4F6F8;          /* table headers, subtle panels */
+  --hover: #FAF7F3;              /* table row hover */
+  --line: var(--color-border);
+  --line-strong: #CBD3DB;
+  --ink: var(--color-navy);
+  --ink-2: var(--color-text-secondary);
+  --ink-3: #66768A;
+  --brand: var(--color-navy);
+  --brand-ink: #FFFFFF;
+  --red: var(--color-brand-red);
+  --sky: var(--color-chart-teal);
+  --yellow: var(--color-brand-yellow);
+  --accent: var(--color-chart-teal);
+  --tint: #EEF2F5;               /* icon tiles */
+  --focus: #1F6FB2;
+
+  /* Status: fills use the brand colours; text variants are darkened slightly for 4.5:1 contrast on white */
+  --good: #12765F;  --good-bg: #E7F4F0;
+  --warn: #8A5A00;  --warn-bg: #FFF5CC;
+  --bad: #C8161E;   --bad-bg: #FDEBEC;
+  --info: #1B7C90;  --info-bg: #E6F5F8;
+
+  /* Chart series: teal (revenue), red (EBITDA / risk), navy, green, amber, blue, slate */
+  --s1: #29AFC7; --s2: #E9232B; --s3: #20384A; --s4: #168B72; --s5: #D99A00; --s6: #5B7FD6; --s7: #8796A6;
+  --chart-grid: var(--color-chart-grid);
+  /* Sequential heat scale (low → high load / risk) */
+  --heat-1: #E8F4F7; --heat-2: #FFE38A; --heat-3: #F0864F; --heat-4: #C8161E;
+
+  /* Sidebar */
+  --nav-bg: var(--color-navy);
+  --nav-hover: var(--color-sidebar-hover);
+  --nav-active: var(--color-brand-red-strong);
+  --nav-muted: #A9B8C5;
+
+  --font-serif: Georgia, 'Times New Roman', serif;
+  --font-sans: 'Barlow', 'Segoe UI', Arial, sans-serif;
+}
+
+body { background: var(--bg); color: var(--ink); font-family: var(--font-sans); }
+
+h1, h2.display, .display { font-family: var(--font-serif); font-weight: 700; letter-spacing: -0.01em; color: var(--ink); }
+h1 { font-size: 1.75rem; line-height: 1.2; }
+
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; box-shadow: 0 1px 2px rgba(32, 56, 74, .05), 0 1px 1px rgba(32, 56, 74, .03); }
+.num { font-variant-numeric: tabular-nums; }
+
+.btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  min-height: 32px; border: 1px solid var(--line-strong); border-radius: 8px; padding: 4px 12px;
+  font-size: 13px; font-weight: 500; background: var(--surface); color: var(--ink);
+  transition: border-color .15s, background-color .15s, color .15s;
+}
+.btn:hover:not(:disabled) { border-color: var(--ink); background: var(--hover); }
+.btn:disabled { opacity: .5; cursor: not-allowed; }
+.btn[aria-pressed="true"] { background: var(--brand); color: var(--brand-ink); border-color: var(--brand); }
+.btn-primary { background: var(--color-brand-red-strong); color: #fff; border-color: var(--color-brand-red-strong); }
+.btn-primary:hover:not(:disabled) { background: #B9161D; border-color: #B9161D; color: #fff; }
+
+.input {
+  min-height: 32px; border: 1px solid var(--line-strong); border-radius: 8px; padding: 4px 10px;
+  font-size: 13px; background: var(--surface); color: var(--ink);
+  transition: border-color .15s;
+}
+.input:hover { border-color: var(--ink-3); }
+.input::placeholder { color: var(--ink-3); }
+
+/* Official logo: original file, original colours, aspect ratio preserved (width/height attributes reserve space, so no layout shift) */
+.bls-company-logo { display: block; width: 210px; height: auto; object-fit: contain; flex-shrink: 0; }
+@media (max-width: 768px) { .bls-company-logo { width: 150px; } }
+@media (max-width: 420px) { .bls-company-logo { width: 116px; } }
+
+/* Visible keyboard focus everywhere; the sidebar overrides the colour for its dark background */
+:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+.nav-dark :focus-visible { outline-color: var(--yellow); }

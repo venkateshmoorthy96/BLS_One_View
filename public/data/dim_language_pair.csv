@@ -1,0 +1,21 @@
+lp_id,pair_label,source_language,target_language,language_family,resource_tier,demand_weight
+LP-01,EN>ES,English,Spanish,Romance,HIGH,0.2828
+LP-02,EN>ZH,English,Chinese (Simplified),Sino-Tibetan,HIGH,0.1212
+LP-03,EN>VI,English,Vietnamese,Austroasiatic,MEDIUM,0.0808
+LP-04,EN>AR,English,Arabic,Semitic,MEDIUM,0.0606
+LP-05,EN>RU,English,Russian,Slavic,HIGH,0.0505
+LP-06,EN>FR,English,French,Romance,HIGH,0.0505
+LP-07,EN>DE,English,German,Germanic,HIGH,0.0303
+LP-08,EN>PT,English,Portuguese (Brazil),Romance,HIGH,0.0505
+LP-09,EN>KO,English,Korean,Koreanic,MEDIUM,0.0404
+LP-10,EN>TL,English,Tagalog,Austronesian,MEDIUM,0.0303
+LP-11,EN>HT,English,Haitian Creole,Creole,LOW,0.0303
+LP-12,EN>SO,English,Somali,Cushitic,LOW,0.0202
+LP-13,EN>HI,English,Hindi,Indo-Aryan,MEDIUM,0.0303
+LP-14,EN>JA,English,Japanese,Japonic,MEDIUM,0.0202
+LP-15,EN>IT,English,Italian,Romance,HIGH,0.0202
+LP-16,EN>PL,English,Polish,Slavic,HIGH,0.0202
+LP-17,EN>AM,English,Amharic,Semitic,LOW,0.0152
+LP-18,EN>FA,English,Farsi,Iranian,MEDIUM,0.0152
+LP-19,EN>UR,English,Urdu,Indo-Aryan,MEDIUM,0.0152
+LP-20,EN>NE,English,Nepali,Indo-Aryan,LOW,0.0152

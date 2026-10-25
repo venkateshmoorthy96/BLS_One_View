@@ -1,0 +1,335 @@
+﻿table,position,column,type,format,required,key,references,allowed_values,formula,description,classification,example,example_source
+dim_connector,1,connector_id,string,text,yes,primary key,,,,Synthetic connector ID (CON-##),SYNTHETIC_IDENTIFIER,CON-01,data dictionary
+dim_connector,2,connector_name,string,text,yes,,,,,Simulated connector label (not a real product),SYNTHETIC_OPERATIONAL,Simulated TMS Job Feed,data dictionary
+dim_connector,3,category,enum,one of the allowed values (exact spelling),yes,,,TMS|CRM|FINANCE|TELEPHONY|VIDEO|HR|AI_MT|QUALITY|DATA,,Connector category,SYNTHETIC_OPERATIONAL,TMS,data dictionary
+dim_connector,4,protocol,enum,one of the allowed values (exact spelling),yes,,,REST|WEBHOOK|SFTP|SOAP|SIP|WEBSOCKET,,Simulated protocol,SYNTHETIC_OPERATIONAL,WEBHOOK,data dictionary
+dim_connector,5,simulated_endpoint,string,text,yes,,,,,Fictional endpoint on the reserved .invalid domain,SYNTHETIC_OPERATIONAL,https://sim-simulated-tms-job-feed.example.invalid/v1,data dictionary
+dim_connector,6,sim_environment,enum,one of the allowed values (exact spelling),yes,,,SIM_PROD|SIM_STAGING,,Simulated environment,SYNTHETIC_OPERATIONAL,SIM_PROD,data dictionary
+dim_connector,7,is_simulated,bool,true or false,yes,,,,,Always true - no live connection exists,SYNTHETIC_OPERATIONAL,true,data dictionary
+dim_date,1,month_id,string,text,yes,primary key,,,,Month key yyyy-mm,SYNTHETIC_IDENTIFIER,2024-01,data dictionary
+dim_date,2,month_start,date,YYYY-MM-DD,yes,,,,,First day of month,SYNTHETIC_OPERATIONAL,2024-01-01,data dictionary
+dim_date,3,month_end,date,YYYY-MM-DD,yes,,,,,Last day of month,SYNTHETIC_OPERATIONAL,2024-01-31,data dictionary
+dim_date,4,year,int,whole number,yes,,,,,Calendar year,SYNTHETIC_OPERATIONAL,2024,data dictionary
+dim_date,5,quarter,string,text,yes,,,,,Quarter label such as 2026-Q3,SYNTHETIC_OPERATIONAL,2024-Q1,data dictionary
+dim_date,6,month_index,int,whole number,yes,,,,,0-based month sequence from the first data month,SYNTHETIC_OPERATIONAL,0,data dictionary
+dim_date,7,is_ytd,bool,true or false,yes,,,,,True if the month is in the as-of year (year-to-date),SYNTHETIC_OPERATIONAL,false,data dictionary
+dim_fx_rate,1,currency_code,enum,one of the allowed values (exact spelling),yes,primary key,,USD|EUR|GBP,,ISO currency code,SYNTHETIC_IDENTIFIER,USD,data dictionary
+dim_fx_rate,2,usd_per_unit,float,decimal number,yes,,,,,"USD per 1 unit of currency (fixed, illustrative)",SYNTHETIC_OPERATIONAL,1.0,data dictionary
+dim_fx_rate,3,rate_type,string,text,yes,,,,,FIXED_ILLUSTRATIVE - never live FX,SYNTHETIC_OPERATIONAL,FIXED_ILLUSTRATIVE,data dictionary
+dim_fx_rate,4,rate_version,string,text,yes,,,,,Rate table version,SYNTHETIC_OPERATIONAL,DEMO-FX-2026-09,data dictionary
+dim_kpi_definition,1,kpi_id,string,text,yes,primary key,,,,KPI code,SYNTHETIC_IDENTIFIER,REV,data dictionary
+dim_kpi_definition,2,kpi_name,string,text,yes,,,,,KPI display name,SYNTHETIC_OPERATIONAL,Recognized revenue,data dictionary
+dim_kpi_definition,3,domain,string,text,yes,,,,,Business domain,SYNTHETIC_OPERATIONAL,Finance,data dictionary
+dim_kpi_definition,4,tab,string,text,yes,,,,,Primary dashboard tab,SYNTHETIC_OPERATIONAL,Overview / Finance,data dictionary
+dim_kpi_definition,5,definition,string,text,yes,,,,,Business definition,SYNTHETIC_OPERATIONAL,"Revenue recognised in the period: written work when a batch is delivered, interpretation when fulfilled minutes are served. Not bookings, invoices or cash.",data dictionary
+dim_kpi_definition,6,formula,string,text,yes,,,,,Calculation formula,SYNTHETIC_OPERATIONAL,"SUM(revenue_usd) over revenue lines in range, converted to reporting currency",data dictionary
+dim_kpi_definition,7,numerator,string,text,no,,,,,"Numerator, if a ratio",SYNTHETIC_OPERATIONAL,,
+dim_kpi_definition,8,denominator,string,text,no,,,,,"Denominator, if a ratio",SYNTHETIC_OPERATIONAL,,
+dim_kpi_definition,9,source_fact,string,text,yes,,,,,Source table(s),SYNTHETIC_OPERATIONAL,fact_revenue_line,data dictionary
+dim_kpi_definition,10,grain,string,text,yes,,,,,Grain of the source data,SYNTHETIC_OPERATIONAL,"Delivered written batch, or client x month x modality",data dictionary
+dim_kpi_definition,11,date_field,string,text,yes,,,,,Date basis,SYNTHETIC_OPERATIONAL,month_id,data dictionary
+dim_kpi_definition,12,filters,string,text,yes,,,,,Filters that apply,SYNTHETIC_OPERATIONAL,"Date range, business unit (via client), service line, client tier/vertical/AM, language pair",data dictionary
+dim_kpi_definition,13,unit,string,text,yes,,,,,Unit of measure,SYNTHETIC_OPERATIONAL,USD (or EUR/GBP),data dictionary
+dim_kpi_definition,14,null_behavior,string,text,yes,,,,,Zero / null behaviour,SYNTHETIC_OPERATIONAL,Empty set = 0,data dictionary
+dim_kpi_definition,15,target_direction,string,text,yes,,,,,Higher or lower is better,SYNTHETIC_OPERATIONAL,Higher,data dictionary
+dim_kpi_definition,16,illustrative_target,string,text,yes,,,,,Illustrative target (not a real BLS target),SYNTHETIC_OPERATIONAL,Plan = smoothed trend +3% (fact_kpi_target_period),data dictionary
+dim_kpi_definition,17,worked_example,string,text,yes,,,,,Worked example with toy numbers,SYNTHETIC_OPERATIONAL,"Two lines of $1,000 and $2,500 in range -> revenue $3,500.",data dictionary
+dim_kpi_definition,18,dependencies,string,text,yes,,,,,Other KPIs or tables it depends on,SYNTHETIC_OPERATIONAL,"dim_client, dim_fx_rate",data dictionary
+dim_language_pair,1,lp_id,string,text,yes,primary key,,,,Synthetic language pair ID (LP-##),SYNTHETIC_IDENTIFIER,LP-01,data dictionary
+dim_language_pair,2,pair_label,string,text,yes,,,,,Label such as EN>ES,SYNTHETIC_OPERATIONAL,EN>ES,data dictionary
+dim_language_pair,3,source_language,string,text,yes,,,,,Source language,SYNTHETIC_OPERATIONAL,English,data dictionary
+dim_language_pair,4,target_language,string,text,yes,,,,,Target language,SYNTHETIC_OPERATIONAL,Spanish,data dictionary
+dim_language_pair,5,language_family,string,text,yes,,,,,Language family used for filters,SYNTHETIC_OPERATIONAL,Romance,data dictionary
+dim_language_pair,6,resource_tier,enum,one of the allowed values (exact spelling),yes,,,HIGH|MEDIUM|LOW,,"Linguist supply tier (HIGH = abundant, LOW = scarce)",SYNTHETIC_OPERATIONAL,HIGH,data dictionary
+dim_language_pair,7,demand_weight,fraction,decimal 0 to 1 (0.25 = 25%),yes,,,,,Relative share of synthetic demand,SYNTHETIC_OPERATIONAL,0.2828,data dictionary
+dim_owner,1,owner_id,string,text,yes,primary key,,,,Synthetic owner ID (OWN-###),SYNTHETIC_IDENTIFIER,OWN-001,data dictionary
+dim_owner,2,owner_code,string,text,yes,,,,,Anonymised display code such as AM-01 / PM-03 / SR-02,SYNTHETIC_IDENTIFIER,AM-01,data dictionary
+dim_owner,3,role,enum,one of the allowed values (exact spelling),yes,,,ACCOUNT_MANAGER|PROJECT_MANAGER|SALES_REP,,Owner role,SYNTHETIC_OPERATIONAL,ACCOUNT_MANAGER,data dictionary
+dim_owner,4,region,enum,one of the allowed values (exact spelling),yes,,,NORTH_AMERICA|EMEA|APAC|LATAM,,Home region,SYNTHETIC_OPERATIONAL,NORTH_AMERICA,data dictionary
+dim_owner,5,weekly_capacity_hours,float,decimal number,no,,,,,Weekly management capacity in hours (project managers only),SYNTHETIC_OPERATIONAL,,
+dim_owner,6,hire_date,date,YYYY-MM-DD,yes,,,,,Synthetic hire date,SYNTHETIC_OPERATIONAL,2020-12-01,data dictionary
+dim_owner,7,termination_date,date,YYYY-MM-DD,no,,,,,Synthetic leaving date; null if still active,SYNTHETIC_OPERATIONAL,,
+dim_owner,8,is_active,bool,true or false,yes,,,,,True if active at the data as-of date,SYNTHETIC_OPERATIONAL,true,data dictionary
+dim_resource,1,resource_id,string,text,yes,primary key,,,,Synthetic resource ID (RES-####),SYNTHETIC_IDENTIFIER,RES-0001,data dictionary
+dim_resource,2,anon_code,string,text,yes,,,,,Anonymised code such as L-0012 or I-0044; no real names,SYNTHETIC_IDENTIFIER,L-0001,data dictionary
+dim_resource,3,resource_type,enum,one of the allowed values (exact spelling),yes,,,FREELANCE_LINGUIST|FREELANCE_INTERPRETER|INTERNAL_LINGUIST|INTERNAL_INTERPRETER,,Resource type,SYNTHETIC_OPERATIONAL,INTERNAL_LINGUIST,data dictionary
+dim_resource,4,region,enum,one of the allowed values (exact spelling),yes,,,NORTH_AMERICA|EMEA|APAC|LATAM,,Region,SYNTHETIC_OPERATIONAL,LATAM,data dictionary
+dim_resource,5,primary_domain,enum,one of the allowed values (exact spelling),yes,,,MEDICAL|LEGAL|REGULATORY|FINANCIAL|TECHNICAL|MARKETING|GOVERNMENT,,Primary subject domain,SYNTHETIC_OPERATIONAL,MEDICAL,data dictionary
+dim_resource,6,certification_label,string,text,yes,,,,,Fictional certification label (not a real credential),SYNTHETIC_OPERATIONAL,Medical specialist (fictional),data dictionary
+dim_resource,7,application_date,date,YYYY-MM-DD,yes,,,,,Synthetic date the resource applied,SYNTHETIC_OPERATIONAL,2023-01-28,data dictionary
+dim_resource,8,onboarded_date,date,YYYY-MM-DD,yes,,,,,Synthetic date the resource became available,SYNTHETIC_OPERATIONAL,2023-03-04,data dictionary
+dim_resource,9,termination_date,date,YYYY-MM-DD,no,,,,,Synthetic end date; null if active,SYNTHETIC_OPERATIONAL,,
+dim_resource,10,is_active,bool,true or false,yes,,,,,Active at the as-of date,SYNTHETIC_OPERATIONAL,true,data dictionary
+dim_resource,11,quality_score,float,decimal number,yes,,,,,Illustrative quality score 0-100,SYNTHETIC_WORKFORCE_SENSITIVE,92.9,data dictionary
+dim_resource,12,availability,fraction,decimal 0 to 1 (0.25 = 25%),yes,,,,,Share of capacity typically available,SYNTHETIC_OPERATIONAL,0.259,data dictionary
+dim_resource,13,weekly_capacity_words,int,whole number,no,,,,,Weekly written capacity in words (linguists),SYNTHETIC_OPERATIONAL,17090,data dictionary
+dim_resource,14,weekly_capacity_minutes,int,whole number,no,,,,,Weekly interpretation capacity in minutes (interpreters),SYNTHETIC_OPERATIONAL,,
+dim_resource,15,rate_per_word_usd,float,decimal number,no,,,,,Base synthetic cost rate per word (linguists),SYNTHETIC_WORKFORCE_SENSITIVE,0.0458,data dictionary
+dim_resource,16,rate_per_minute_usd,float,decimal number,no,,,,,Synthetic pay rate per minute (interpreters),SYNTHETIC_WORKFORCE_SENSITIVE,,
+dim_roadmap_feature,1,feature_id,string,text,yes,primary key,,,,Feature ID,SYNTHETIC_IDENTIFIER,FEA-001,data dictionary
+dim_roadmap_feature,2,title,string,text,yes,,,,,Feature title,SYNTHETIC_OPERATIONAL,Live connector onboarding wizard,data dictionary
+dim_roadmap_feature,3,description,string,text,yes,,,,,Feature description,SYNTHETIC_OPERATIONAL,Guided setup for connecting a real TMS or CRM (concept).,data dictionary
+dim_roadmap_feature,4,category,string,text,yes,,,,,Functional area,SYNTHETIC_OPERATIONAL,Integration,data dictionary
+dim_roadmap_feature,5,status,enum,one of the allowed values (exact spelling),yes,,,DELIVERED|IN_PROGRESS|PLANNED|UNDER_REVIEW,,Release status (illustrative),SYNTHETIC_OPERATIONAL,PLANNED,data dictionary
+dim_roadmap_feature,6,target_quarter,string,text,yes,,,,,Illustrative target quarter,SYNTHETIC_OPERATIONAL,2027-Q1,data dictionary
+dim_roadmap_feature,7,priority,enum,one of the allowed values (exact spelling),yes,,,P1|P2|P3,,Priority,SYNTHETIC_OPERATIONAL,P1,data dictionary
+dim_roadmap_feature,8,seed_votes,int,whole number,yes,,,,,Illustrative starting votes (fictional),SYNTHETIC_OPERATIONAL,41,data dictionary
+dim_service_line,1,service_line_id,enum,one of the allowed values (exact spelling),yes,primary key,,TRANSLATION|LOCALIZATION|ALT_FORMAT|OPI|VRI|ONSITE,,Service line code,SYNTHETIC_IDENTIFIER,TRANSLATION,data dictionary
+dim_service_line,2,service_line_name,string,text,yes,,,,,Display name,SYNTHETIC_OPERATIONAL,Document Translation,data dictionary
+dim_service_line,3,family,enum,one of the allowed values (exact spelling),yes,,,WRITTEN|INTERPRETATION,,Written or interpretation,SYNTHETIC_OPERATIONAL,WRITTEN,data dictionary
+dim_service_line,4,unit_type,enum,one of the allowed values (exact spelling),yes,,,WORD|MINUTE,,Unit the service is billed in,SYNTHETIC_OPERATIONAL,WORD,data dictionary
+dim_service_line,5,sort_order,int,whole number,yes,,,,,Display order,SYNTHETIC_OPERATIONAL,1,data dictionary
+dim_workflow_type,1,workflow_id,enum,one of the allowed values (exact spelling),yes,primary key,,HT|MTPE|AIR,,Workflow code,SYNTHETIC_IDENTIFIER,HT,data dictionary
+dim_workflow_type,2,workflow_name,string,text,yes,,,,,Display name,SYNTHETIC_OPERATIONAL,Human translation (TEP),data dictionary
+dim_workflow_type,3,is_ai_touched,bool,true or false,yes,,,,,True when machine output is used in the workflow,SYNTHETIC_OPERATIONAL,false,data dictionary
+dim_workflow_type,4,description,string,text,yes,,,,,Plain-language description,SYNTHETIC_OPERATIONAL,"Translate, edit and proofread by linguists",data dictionary
+fact_data_quality_check,1,check_id,string,text,yes,primary key,,,,Check ID,SYNTHETIC_IDENTIFIER,DQC-0001,data dictionary
+fact_data_quality_check,2,entity,string,text,yes,,,,,Entity checked,SYNTHETIC_OPERATIONAL,dim_owner,data dictionary
+fact_data_quality_check,3,check_name,string,text,yes,,,,,Check name,SYNTHETIC_OPERATIONAL,has rows,data dictionary
+fact_data_quality_check,4,dimension,enum,one of the allowed values (exact spelling),yes,,,COMPLETENESS|UNIQUENESS|VALIDITY|CONSISTENCY|INTEGRITY|RECONCILIATION,,Quality dimension,SYNTHETIC_OPERATIONAL,COMPLETENESS,data dictionary
+fact_data_quality_check,5,rows_checked,int,whole number,yes,,,,,Rows checked,SYNTHETIC_OPERATIONAL,1,data dictionary
+fact_data_quality_check,6,rows_failed,int,whole number,yes,,,,,Rows failing,SYNTHETIC_OPERATIONAL,0,data dictionary
+fact_data_quality_check,7,passed,bool,true or false,yes,,,,,Check result,SYNTHETIC_OPERATIONAL,true,data dictionary
+fact_data_quality_check,8,detail,string,text,no,,,,,Detail,SYNTHETIC_OPERATIONAL,21 rows,data dictionary
+fact_feedback_sample,1,feedback_id,string,text,yes,primary key,,,,Feedback ID,SYNTHETIC_IDENTIFIER,FDB-001,data dictionary
+fact_feedback_sample,2,category,string,text,yes,,,,,Category,SYNTHETIC_OPERATIONAL,General,data dictionary
+fact_feedback_sample,3,rating,int,whole number,yes,,,,,Rating 1-5,SYNTHETIC_OPERATIONAL,5,data dictionary
+fact_feedback_sample,4,comment,string,text,yes,,,,,Fictional comment,SYNTHETIC_OPERATIONAL,Clear overview; the reconciliation between tabs is helpful.,data dictionary
+fact_feedback_sample,5,role_label,string,text,yes,,,,,Fictional role label,SYNTHETIC_OPERATIONAL,Operations lead (fictional),data dictionary
+fact_feedback_sample,6,submitted_date,date,YYYY-MM-DD,yes,,,,,Fictional date,SYNTHETIC_OPERATIONAL,2026-09-12,data dictionary
+fact_scenario_assumption_set,1,set_id,string,text,yes,primary key,,,,Set ID,SYNTHETIC_IDENTIFIER,SCN-BASELINE,data dictionary
+fact_scenario_assumption_set,2,set_name,string,text,yes,,,,,Name,SYNTHETIC_OPERATIONAL,Baseline (trailing 12 months),data dictionary
+fact_scenario_assumption_set,3,ai_adoption_delta,fraction,decimal 0 to 1 (0.25 = 25%),yes,,,,,"Added AI-touched share of written words (absolute, 0..1)",SYNTHETIC_OPERATIONAL,0.0,data dictionary
+fact_scenario_assumption_set,4,price_adjustment,sfraction,signed decimal -1 to 1 (-0.05 = -5%),yes,,,,,Client pricing adjustment,SYNTHETIC_OPERATIONAL,0.0,data dictionary
+fact_scenario_assumption_set,5,vendor_inflation,sfraction,signed decimal -1 to 1 (-0.05 = -5%),yes,,,,,Vendor-rate inflation,SYNTHETIC_OPERATIONAL,0.0,data dictionary
+fact_scenario_assumption_set,6,volume_growth,sfraction,signed decimal -1 to 1 (-0.05 = -5%),yes,,,,,Volume growth,SYNTHETIC_OPERATIONAL,0.0,data dictionary
+fact_scenario_assumption_set,7,formula_version,string,text,yes,,,,,Scenario formula version,SYNTHETIC_OPERATIONAL,SCN-F1.0,data dictionary
+fact_scenario_assumption_set,8,description,string,text,yes,,,,,Description,SYNTHETIC_OPERATIONAL,Illustrative scenario preset - not a forecast,data dictionary
+bridge_resource_language,1,resource_id,string,text,yes,foreign key,dim_resource.resource_id,,,Resource,SYNTHETIC_IDENTIFIER,RES-0001,data dictionary
+bridge_resource_language,2,lp_id,string,text,yes,foreign key,dim_language_pair.lp_id,,,Language pair covered,SYNTHETIC_IDENTIFIER,LP-01,data dictionary
+bridge_resource_language,3,expertise_domain,enum,one of the allowed values (exact spelling),yes,,,MEDICAL|LEGAL|REGULATORY|FINANCIAL|TECHNICAL|MARKETING|GOVERNMENT,,Subject domain for this coverage,SYNTHETIC_OPERATIONAL,MEDICAL,data dictionary
+bridge_resource_language,4,is_primary,bool,true or false,yes,,,,,True if this is the resource's main language pair,SYNTHETIC_OPERATIONAL,true,data dictionary
+dim_client,1,client_id,string,text,yes,primary key,,,,Synthetic client ID (CL-####),SYNTHETIC_IDENTIFIER,CL-0001,data dictionary
+dim_client,2,client_name,string,text,yes,,,,,Fictional client name; any resemblance to a real organisation is coincidental,SYNTHETIC_OPERATIONAL,Yarrow Medical Center,data dictionary
+dim_client,3,vertical,enum,one of the allowed values (exact spelling),yes,,,HEALTHCARE|GOVERNMENT|LEGAL|LIFE_SCIENCES|FINANCIAL_SERVICES|TECHNOLOGY,,Industry vertical,SYNTHETIC_OPERATIONAL,HEALTHCARE,data dictionary
+dim_client,4,region,enum,one of the allowed values (exact spelling),yes,,,NORTH_AMERICA|EMEA|APAC|LATAM,,Client region,SYNTHETIC_OPERATIONAL,APAC,data dictionary
+dim_client,5,tier,enum,one of the allowed values (exact spelling),yes,,,STRATEGIC|GROWTH|STANDARD,,Client tier by synthetic size,SYNTHETIC_OPERATIONAL,STRATEGIC,data dictionary
+dim_client,6,business_unit,enum,one of the allowed values (exact spelling),yes,,,UNIT_ALPHA|UNIT_BETA|UNIT_GAMMA,,Fictional business unit that owns the account,SYNTHETIC_OPERATIONAL,UNIT_ALPHA,data dictionary
+dim_client,7,account_manager_id,string,text,yes,foreign key,dim_owner.owner_id,,,Account manager owner,SYNTHETIC_IDENTIFIER,OWN-003,data dictionary
+dim_client,8,billing_currency,enum,one of the allowed values (exact spelling),yes,,,USD|EUR|GBP,,Invoice currency,SYNTHETIC_OPERATIONAL,USD,data dictionary
+dim_client,9,contract_type,enum,one of the allowed values (exact spelling),yes,,,MSA_ANNUAL|MSA_MULTI_YEAR|PAY_AS_YOU_GO,,Contract type,SYNTHETIC_OPERATIONAL,MSA_MULTI_YEAR,data dictionary
+dim_client,10,contract_start_date,date,YYYY-MM-DD,yes,,,,,Synthetic contract start,SYNTHETIC_OPERATIONAL,2023-06-29,data dictionary
+dim_client,11,contract_end_date,date,YYYY-MM-DD,no,,,,,Synthetic contract end / renewal date,SYNTHETIC_OPERATIONAL,2029-06-28,data dictionary
+dim_client,12,onboarding_date,date,YYYY-MM-DD,yes,,,,,Date the client first became billable,SYNTHETIC_OPERATIONAL,2023-06-29,data dictionary
+dim_client,13,churn_date,date,YYYY-MM-DD,no,,,,,Date billing stopped; null if still active,SYNTHETIC_OPERATIONAL,,
+dim_client,14,contract_summary,string,text,yes,,,,,Short synthetic contract summary used in the client dossier,SYNTHETIC_OPERATIONAL,Msa Multi Year; net-60; billed in USD; renews 2029-06-28,data dictionary
+fact_capacity_period,1,capacity_id,string,text,yes,primary key,,,,Capacity row ID,SYNTHETIC_IDENTIFIER,CAP-00001,data dictionary
+fact_capacity_period,2,lp_id,string,text,yes,foreign key,dim_language_pair.lp_id,,,Language pair,SYNTHETIC_IDENTIFIER,LP-01,data dictionary
+fact_capacity_period,3,week_start,date,YYYY-MM-DD,yes,,,,,Monday of the week,SYNTHETIC_OPERATIONAL,2026-06-29,data dictionary
+fact_capacity_period,4,demand_words,int,whole number,yes,,,,,"Demand in words (actual starts for past weeks, forecast for future weeks)",SYNTHETIC_OPERATIONAL,65417,data dictionary
+fact_capacity_period,5,supply_words,int,whole number,yes,,,,,Qualified supply in words (sum of resource capacity x availability),SYNTHETIC_OPERATIONAL,26726,data dictionary
+fact_capacity_period,6,confirmed_words,int,whole number,yes,,,,,Words already assigned/confirmed (<= demand),SYNTHETIC_OPERATIONAL,65417,data dictionary
+fact_capacity_period,7,is_forecast,bool,true or false,yes,,,,,True for weeks after the as-of date,SYNTHETIC_OPERATIONAL,false,data dictionary
+fact_integration_telemetry,1,telemetry_id,string,text,yes,primary key,,,,Telemetry ID,SYNTHETIC_IDENTIFIER,TEL-000001,data dictionary
+fact_integration_telemetry,2,connector_id,string,text,yes,foreign key,dim_connector.connector_id,,,Connector,SYNTHETIC_IDENTIFIER,CON-01,data dictionary
+fact_integration_telemetry,3,date,date,YYYY-MM-DD,yes,,,,,Day,SYNTHETIC_OPERATIONAL,2026-07-03,data dictionary
+fact_integration_telemetry,4,monitored_minutes,int,whole number,yes,,,,,Minutes monitored (1440),SYNTHETIC_OPERATIONAL,1440,data dictionary
+fact_integration_telemetry,5,up_minutes,int,whole number,yes,,,,,Minutes up (<= monitored),SYNTHETIC_OPERATIONAL,1440,data dictionary
+fact_integration_telemetry,6,requests,int,whole number,yes,,,,,Simulated requests,SYNTHETIC_OPERATIONAL,10653,data dictionary
+fact_integration_telemetry,7,errors_4xx,int,whole number,yes,,,,,Simulated 4xx errors,SYNTHETIC_OPERATIONAL,27,data dictionary
+fact_integration_telemetry,8,errors_5xx,int,whole number,yes,,,,,Simulated 5xx errors,SYNTHETIC_OPERATIONAL,16,data dictionary
+fact_integration_telemetry,9,errors_timeout,int,whole number,yes,,,,,Simulated timeouts,SYNTHETIC_OPERATIONAL,11,data dictionary
+fact_integration_telemetry,10,records_ingested,int,whole number,yes,,,,,Simulated records ingested,SYNTHETIC_OPERATIONAL,30727,data dictionary
+fact_integration_telemetry,11,p50_ms,float,decimal number,yes,,,,,Median latency (ms),SYNTHETIC_OPERATIONAL,112.9,data dictionary
+fact_integration_telemetry,12,p95_ms,float,decimal number,yes,,,,,95th percentile latency (ms),SYNTHETIC_OPERATIONAL,351.5,data dictionary
+fact_integration_telemetry,13,p99_ms,float,decimal number,yes,,,,,99th percentile latency (ms),SYNTHETIC_OPERATIONAL,577.7,data dictionary
+fact_kpi_target_period,1,target_id,string,text,yes,primary key,,,,Target ID,SYNTHETIC_IDENTIFIER,TGT-00001,data dictionary
+fact_kpi_target_period,2,month_id,string,text,yes,foreign key,dim_date.month_id,,,Month,SYNTHETIC_IDENTIFIER,2024-01,data dictionary
+fact_kpi_target_period,3,kpi_id,string,text,yes,foreign key,dim_kpi_definition.kpi_id,,,KPI code,SYNTHETIC_IDENTIFIER,REV,data dictionary
+fact_kpi_target_period,4,target_value,float,decimal number,yes,,,,,"Illustrative target (USD for revenue, fraction for ratios)",SYNTHETIC_OPERATIONAL,97304.83,data dictionary
+fact_okr,1,okr_id,string,text,yes,primary key,,,,OKR ID,SYNTHETIC_IDENTIFIER,OKR-001,data dictionary
+fact_okr,2,pillar,string,text,yes,,,,,Strategic pillar,SYNTHETIC_OPERATIONAL,Grow profitably,data dictionary
+fact_okr,3,objective,string,text,yes,,,,,Objective,SYNTHETIC_OPERATIONAL,Increase recognised revenue,data dictionary
+fact_okr,4,key_result,string,text,yes,,,,,Key result,SYNTHETIC_OPERATIONAL,YTD recognised revenue vs plan (USD),data dictionary
+fact_okr,5,owner_id,string,text,yes,foreign key,dim_owner.owner_id,,,Owner,SYNTHETIC_IDENTIFIER,OWN-001,data dictionary
+fact_okr,6,metric_kpi_id,string,text,no,foreign key,dim_kpi_definition.kpi_id,,,KPI measured,SYNTHETIC_IDENTIFIER,REV,data dictionary
+fact_okr,7,baseline_value,float,decimal number,yes,,,,,Baseline value,SYNTHETIC_OPERATIONAL,860941.51,data dictionary
+fact_okr,8,target_value,float,decimal number,yes,,,,,Target value,SYNTHETIC_OPERATIONAL,1087935.59,data dictionary
+fact_okr,9,current_value,float,decimal number,yes,,,,,Current value computed from generated facts,SYNTHETIC_OPERATIONAL,1072967.14,data dictionary
+fact_okr,10,progress,fraction,decimal 0 to 1 (0.25 = 25%),yes,,,,,Progress toward target 0..1,SYNTHETIC_OPERATIONAL,0.9341,data dictionary
+fact_okr,11,status,enum,one of the allowed values (exact spelling),yes,,,ON_TRACK|AT_RISK|OFF_TRACK|COMPLETE,,Status,SYNTHETIC_OPERATIONAL,ON_TRACK,data dictionary
+fact_okr,12,target_date,date,YYYY-MM-DD,yes,,,,,Target date,SYNTHETIC_OPERATIONAL,2026-12-31,data dictionary
+fact_risk_alert,1,alert_id,string,text,yes,primary key,,,,Alert ID (ALT-####),SYNTHETIC_IDENTIFIER,ALT-0001,data dictionary
+fact_risk_alert,2,raised_date,date,YYYY-MM-DD,yes,,,,,Raised date,SYNTHETIC_OPERATIONAL,2026-09-19,data dictionary
+fact_risk_alert,3,severity,enum,one of the allowed values (exact spelling),yes,,,CRITICAL|HIGH|MEDIUM|LOW,,Severity,SYNTHETIC_OPERATIONAL,CRITICAL,data dictionary
+fact_risk_alert,4,domain,enum,one of the allowed values (exact spelling),yes,,,DELIVERY|CLIENT|CAPACITY|QUALITY|FINANCE|TECHNOLOGY|COMPLIANCE,,Domain,SYNTHETIC_OPERATIONAL,CAPACITY,data dictionary
+fact_risk_alert,5,rule_id,string,text,yes,,,,,Rule that produced the alert,SYNTHETIC_IDENTIFIER,R-CAP,data dictionary
+fact_risk_alert,6,entity_type,string,text,yes,,,,,Entity type,SYNTHETIC_OPERATIONAL,language_pair,data dictionary
+fact_risk_alert,7,entity_id,string,text,yes,,,,,Entity ID,SYNTHETIC_IDENTIFIER,LP-19,data dictionary
+fact_risk_alert,8,description,string,text,yes,,,,,Alert description,SYNTHETIC_OPERATIONAL,Capacity pressure on EN>UR over the next 8 weeks,data dictionary
+fact_risk_alert,9,trigger_text,string,text,yes,,,,,Trigger condition and values,SYNTHETIC_OPERATIONAL,"forecast load 190% > 90%; shortfall 19,528 words",data dictionary
+fact_risk_alert,10,likelihood,int,whole number,yes,,,,,Likelihood 1-5,SYNTHETIC_OPERATIONAL,5,data dictionary
+fact_risk_alert,11,impact,int,whole number,yes,,,,,Impact 1-5,SYNTHETIC_OPERATIONAL,5,data dictionary
+fact_risk_alert,12,exposure_usd,money,"decimal, 2 places, USD unless the column name says otherwise",yes,,,,,Estimated exposure in USD (illustrative),SYNTHETIC_FINANCIAL,3407.03,data dictionary
+fact_risk_alert,13,recommended_action,string,text,yes,,,,,Recommended action,SYNTHETIC_OPERATIONAL,Source additional qualified linguists or rebalance deadlines,data dictionary
+fact_risk_alert,14,owner_id,string,text,yes,foreign key,dim_owner.owner_id,,,Owner,SYNTHETIC_IDENTIFIER,OWN-014,data dictionary
+fact_risk_alert,15,status,enum,one of the allowed values (exact spelling),yes,,,OPEN|IN_PROGRESS|RESOLVED,,Initial state,SYNTHETIC_OPERATIONAL,IN_PROGRESS,data dictionary
+fact_risk_alert,16,link_path,string,text,yes,,,,,Dashboard route for the action link,SYNTHETIC_OPERATIONAL,/capacity-demand,data dictionary
+fact_scenario_output,1,output_id,string,text,yes,primary key,,,,Output ID,SYNTHETIC_IDENTIFIER,SCO-001,data dictionary
+fact_scenario_output,2,set_id,string,text,yes,foreign key,fact_scenario_assumption_set.set_id,,,Assumption set,SYNTHETIC_IDENTIFIER,SCN-BASELINE,data dictionary
+fact_scenario_output,3,formula_version,string,text,yes,,,,,Formula version,SYNTHETIC_OPERATIONAL,SCN-F1.0,data dictionary
+fact_scenario_output,4,revenue_usd,money,"decimal, 2 places, USD unless the column name says otherwise",yes,,,,,Scenario revenue (12-month basis),SYNTHETIC_FINANCIAL,1369570.56,data dictionary
+fact_scenario_output,5,gross_profit_usd,money,"decimal, 2 places, USD unless the column name says otherwise",yes,,,,,Scenario gross profit,SYNTHETIC_FINANCIAL,569938.24,data dictionary
+fact_scenario_output,6,gross_margin,fraction,decimal 0 to 1 (0.25 = 25%),yes,,,,,Scenario gross margin,SYNTHETIC_OPERATIONAL,0.416144,data dictionary
+fact_scenario_output,7,ebitda_usd,money,"decimal, 2 places, USD unless the column name says otherwise",yes,,,,,Scenario EBITDA,SYNTHETIC_FINANCIAL,192136.47,data dictionary
+fact_scenario_output,8,ebitda_margin,sfraction,signed decimal -1 to 1 (-0.05 = -5%),yes,,,,,Scenario EBITDA margin,SYNTHETIC_OPERATIONAL,0.14029,data dictionary
+fact_scenario_output,9,ebitda_delta_vs_base_usd,money,"decimal, 2 places, USD unless the column name says otherwise",yes,,,,,EBITDA delta vs baseline (may be negative),SYNTHETIC_FINANCIAL,0.0,data dictionary
+fact_scenario_output,10,capacity_gap_words,float,decimal number,yes,,,,,Required less available human words (positive = shortfall),SYNTHETIC_OPERATIONAL,-3303393.9,data dictionary
+fact_client_period_snapshot,1,snapshot_id,string,text,yes,primary key,,,,Snapshot ID,SYNTHETIC_IDENTIFIER,SNP-00001,data dictionary
+fact_client_period_snapshot,2,client_id,string,text,yes,foreign key,dim_client.client_id,,,Client,SYNTHETIC_IDENTIFIER,CL-0001,data dictionary
+fact_client_period_snapshot,3,snapshot_month_id,string,text,yes,foreign key,dim_date.month_id,,,Month of snapshot,SYNTHETIC_IDENTIFIER,2024-03,data dictionary
+fact_client_period_snapshot,4,health_score,fraction,decimal 0 to 1 (0.25 = 25%),yes,,,,0.30*otd_90d + 0.25*quality_norm + 0.20*payment_timeliness + 0.25*revenue_trend_norm (weights renormalised if a component is missing),Composite health score 0..1,SYNTHETIC_OPERATIONAL,1.0,data dictionary
+fact_client_period_snapshot,5,health_band,enum,one of the allowed values (exact spelling),yes,,,HEALTHY|WATCH|AT_RISK,,"HEALTHY >= 0.70, WATCH >= 0.50, otherwise AT_RISK",SYNTHETIC_OPERATIONAL,HEALTHY,data dictionary
+fact_client_period_snapshot,6,ttm_revenue_usd,money,"decimal, 2 places, USD unless the column name says otherwise",yes,,,,,Trailing-12-month recognised revenue in USD,SYNTHETIC_FINANCIAL,7725.99,data dictionary
+fact_client_period_snapshot,7,otd_90d,fraction,decimal 0 to 1 (0.25 = 25%),no,,,,,Trailing 90-day on-time delivery,SYNTHETIC_OPERATIONAL,1.0,data dictionary
+fact_client_period_snapshot,8,quality_norm,fraction,decimal 0 to 1 (0.25 = 25%),no,,,,,Average quality score mapped (score-80)/20 and clipped to 0..1,SYNTHETIC_OPERATIONAL,,
+fact_client_period_snapshot,9,payment_timeliness,fraction,decimal 0 to 1 (0.25 = 25%),no,,,,,Share of trailing-180-day invoices paid within terms,SYNTHETIC_OPERATIONAL,,
+fact_client_period_snapshot,10,revenue_trend_norm,fraction,decimal 0 to 1 (0.25 = 25%),no,,,,,Trailing-3-month vs prior-3-month revenue mapped to 0..1,SYNTHETIC_OPERATIONAL,,
+fact_interpretation_session,1,session_id,string,text,yes,primary key,,,,Session ID (INT-######),SYNTHETIC_IDENTIFIER,INT-000001,data dictionary
+fact_interpretation_session,2,client_id,string,text,yes,foreign key,dim_client.client_id,,,Client,SYNTHETIC_IDENTIFIER,CL-0031,data dictionary
+fact_interpretation_session,3,service_line_id,enum,one of the allowed values (exact spelling),yes,foreign key,dim_service_line.service_line_id,TRANSLATION|LOCALIZATION|ALT_FORMAT|OPI|VRI|ONSITE,,"OPI, VRI or ONSITE",SYNTHETIC_IDENTIFIER,OPI,data dictionary
+fact_interpretation_session,4,lp_id,string,text,yes,foreign key,dim_language_pair.lp_id,,,Non-English language of the session,SYNTHETIC_IDENTIFIER,LP-01,data dictionary
+fact_interpretation_session,5,request_date,date,YYYY-MM-DD,yes,,,,,Request date,SYNTHETIC_OPERATIONAL,2024-01-01,data dictionary
+fact_interpretation_session,6,request_hour,int,whole number,yes,,,,,Hour of day 0-23 (synthetic local time),SYNTHETIC_OPERATIONAL,2,data dictionary
+fact_interpretation_session,7,request_type,enum,one of the allowed values (exact spelling),yes,,,ON_DEMAND|SCHEDULED,,On-demand or scheduled,SYNTHETIC_OPERATIONAL,SCHEDULED,data dictionary
+fact_interpretation_session,8,status,enum,one of the allowed values (exact spelling),yes,,,FULFILLED|UNFULFILLED|CANCELLED_BY_CLIENT|TECH_FAILURE,,Outcome,SYNTHETIC_OPERATIONAL,FULFILLED,data dictionary
+fact_interpretation_session,9,connect_seconds,float,decimal number,no,,,,,Seconds to connect an interpreter (on-demand OPI/VRI); null otherwise,SYNTHETIC_OPERATIONAL,,
+fact_interpretation_session,10,duration_min,float,decimal number,yes,,,,,Delivered minutes; 0 unless FULFILLED,SYNTHETIC_OPERATIONAL,4.0,data dictionary
+fact_interpretation_session,11,interpreter_id,string,text,no,foreign key,dim_resource.resource_id,,,Anonymised interpreter; null if not fulfilled,SYNTHETIC_IDENTIFIER,RES-0099,data dictionary
+fact_interpretation_session,12,rating,int,whole number,no,,,,,Optional client rating 1-5,SYNTHETIC_OPERATIONAL,1,data dictionary
+fact_invoice_line,1,invoice_line_id,string,text,yes,primary key,,,,Invoice line ID,SYNTHETIC_IDENTIFIER,INVL-000001,data dictionary
+fact_invoice_line,2,invoice_id,string,text,yes,,,,,Invoice (one per client per billing date),SYNTHETIC_IDENTIFIER,INV-000001,data dictionary
+fact_invoice_line,3,client_id,string,text,yes,foreign key,dim_client.client_id,,,Client,SYNTHETIC_IDENTIFIER,CL-0001,data dictionary
+fact_invoice_line,4,service_line_id,enum,one of the allowed values (exact spelling),yes,foreign key,dim_service_line.service_line_id,TRANSLATION|LOCALIZATION|ALT_FORMAT|OPI|VRI|ONSITE,,Service line,SYNTHETIC_IDENTIFIER,ONSITE,data dictionary
+fact_invoice_line,5,revenue_month_id,string,text,yes,foreign key,dim_date.month_id,,,Revenue month being billed,SYNTHETIC_IDENTIFIER,2024-01,data dictionary
+fact_invoice_line,6,invoice_date,date,YYYY-MM-DD,yes,,,,,"Invoice date (billing in arrears, early next month)",SYNTHETIC_OPERATIONAL,2024-02-03,data dictionary
+fact_invoice_line,7,due_date,date,YYYY-MM-DD,yes,,,,,Payment due date,SYNTHETIC_OPERATIONAL,2024-04-03,data dictionary
+fact_invoice_line,8,currency,enum,one of the allowed values (exact spelling),yes,,,USD|EUR|GBP,,Currency,SYNTHETIC_OPERATIONAL,USD,data dictionary
+fact_invoice_line,9,amount_original,money,"decimal, 2 places, USD unless the column name says otherwise",yes,,,,,Invoiced amount in billing currency,SYNTHETIC_FINANCIAL,1400.85,data dictionary
+fact_invoice_line,10,fx_usd_per_unit,float,decimal number,yes,,,,,Fixed FX rate,SYNTHETIC_OPERATIONAL,1.0,data dictionary
+fact_invoice_line,11,amount_usd,money,"decimal, 2 places, USD unless the column name says otherwise",yes,,,,,Invoiced amount in USD,SYNTHETIC_FINANCIAL,1400.85,data dictionary
+fact_invoice_line,12,adjustment_fraction,sfraction,signed decimal -1 to 1 (-0.05 = -5%),yes,,,,,Invoice adjustment vs recognised revenue (credits/uplifts),SYNTHETIC_OPERATIONAL,0.0,data dictionary
+fact_opportunity,1,opportunity_id,string,text,yes,primary key,,,,Opportunity ID (OPP-####),SYNTHETIC_IDENTIFIER,OPP-0001,data dictionary
+fact_opportunity,2,prospect_name,string,text,yes,,,,,Fictional prospect or client name,SYNTHETIC_OPERATIONAL,Bluewater Legal Group,data dictionary
+fact_opportunity,3,opportunity_type,enum,one of the allowed values (exact spelling),yes,,,NEW_LOGO|EXPANSION,,New logo or expansion of an existing client,SYNTHETIC_OPERATIONAL,EXPANSION,data dictionary
+fact_opportunity,4,vertical,enum,one of the allowed values (exact spelling),yes,,,HEALTHCARE|GOVERNMENT|LEGAL|LIFE_SCIENCES|FINANCIAL_SERVICES|TECHNOLOGY,,Vertical,SYNTHETIC_OPERATIONAL,LEGAL,data dictionary
+fact_opportunity,5,territory,enum,one of the allowed values (exact spelling),yes,,,NORTH_AMERICA|EMEA|APAC|LATAM,,Sales territory,SYNTHETIC_OPERATIONAL,NORTH_AMERICA,data dictionary
+fact_opportunity,6,lead_source,enum,one of the allowed values (exact spelling),yes,,,INBOUND_WEB|REFERRAL|PARTNER|OUTBOUND|EVENT,,Lead source,SYNTHETIC_OPERATIONAL,REFERRAL,data dictionary
+fact_opportunity,7,owner_id,string,text,yes,foreign key,dim_owner.owner_id,,,Sales owner,SYNTHETIC_IDENTIFIER,OWN-018,data dictionary
+fact_opportunity,8,created_date,date,YYYY-MM-DD,yes,,,,,Date created,SYNTHETIC_OPERATIONAL,2023-10-02,data dictionary
+fact_opportunity,9,expected_close_date,date,YYYY-MM-DD,yes,,,,,Expected close date,SYNTHETIC_OPERATIONAL,2023-12-23,data dictionary
+fact_opportunity,10,closed_date,date,YYYY-MM-DD,no,,,,,Actual close date for won/lost,SYNTHETIC_OPERATIONAL,2023-12-23,data dictionary
+fact_opportunity,11,stage_current,enum,one of the allowed values (exact spelling),yes,,,LEAD|QUALIFIED|PROPOSAL|NEGOTIATION|CLOSED_WON|CLOSED_LOST,,Current stage,SYNTHETIC_OPERATIONAL,CLOSED_WON,data dictionary
+fact_opportunity,12,value_usd,money,"decimal, 2 places, USD unless the column name says otherwise",yes,,,,,Estimated annual contract value in USD,SYNTHETIC_FINANCIAL,40796.57,data dictionary
+fact_opportunity,13,probability,fraction,decimal 0 to 1 (0.25 = 25%),yes,,,,,Stage-based win probability (configured demo table),SYNTHETIC_OPERATIONAL,1.0,data dictionary
+fact_opportunity,14,loss_reason,enum,one of the allowed values (exact spelling),no,,,PRICE|INCUMBENT_PREFERRED|LANGUAGE_COVERAGE|TURNAROUND|NO_DECISION|QUALITY_CONCERNS,,Reason for loss,SYNTHETIC_OPERATIONAL,,
+fact_opportunity,15,language_count,int,whole number,yes,,,,,Languages in scope,SYNTHETIC_OPERATIONAL,3,data dictionary
+fact_opportunity,16,quote_turnaround_hours,float,decimal number,no,,,,,Hours from request to quote,SYNTHETIC_OPERATIONAL,65.1,data dictionary
+fact_opportunity,17,client_id,string,text,no,foreign key,dim_client.client_id,,,Resulting or existing client (won opportunities and expansions),SYNTHETIC_IDENTIFIER,CL-0034,data dictionary
+fact_payment,1,payment_id,string,text,yes,primary key,,,,Payment ID,SYNTHETIC_IDENTIFIER,PAY-000001,data dictionary
+fact_payment,2,client_id,string,text,yes,foreign key,dim_client.client_id,,,Client,SYNTHETIC_IDENTIFIER,CL-0044,data dictionary
+fact_payment,3,payment_date,date,YYYY-MM-DD,yes,,,,,Receipt date,SYNTHETIC_OPERATIONAL,2024-02-23,data dictionary
+fact_payment,4,currency,enum,one of the allowed values (exact spelling),yes,,,USD|EUR|GBP,,Currency,SYNTHETIC_OPERATIONAL,EUR,data dictionary
+fact_payment,5,amount_original,money,"decimal, 2 places, USD unless the column name says otherwise",yes,,,,,Cash received in currency,SYNTHETIC_FINANCIAL,2503.34,data dictionary
+fact_payment,6,amount_usd,money,"decimal, 2 places, USD unless the column name says otherwise",yes,,,,,Cash received in USD,SYNTHETIC_FINANCIAL,2703.61,data dictionary
+fact_project,1,project_id,string,text,yes,primary key,,,,Project ID (PRJ-######),SYNTHETIC_IDENTIFIER,PRJ-000001,data dictionary
+fact_project,2,project_name,string,text,yes,,,,,Fictional project name,SYNTHETIC_OPERATIONAL,Annual Report 2023-12,data dictionary
+fact_project,3,client_id,string,text,yes,foreign key,dim_client.client_id,,,Client,SYNTHETIC_IDENTIFIER,CL-0055,data dictionary
+fact_project,4,service_line_id,enum,one of the allowed values (exact spelling),yes,foreign key,dim_service_line.service_line_id,TRANSLATION|LOCALIZATION|ALT_FORMAT|OPI|VRI|ONSITE,,Written service line (exclusive),SYNTHETIC_IDENTIFIER,TRANSLATION,data dictionary
+fact_project,5,domain,enum,one of the allowed values (exact spelling),yes,,,MEDICAL|LEGAL|REGULATORY|FINANCIAL|TECHNICAL|MARKETING|GOVERNMENT,,Subject domain,SYNTHETIC_OPERATIONAL,FINANCIAL,data dictionary
+fact_project,6,pm_owner_id,string,text,yes,foreign key,dim_owner.owner_id,,,Project manager,SYNTHETIC_IDENTIFIER,OWN-008,data dictionary
+fact_project,7,start_date,date,YYYY-MM-DD,yes,,,,,Project start,SYNTHETIC_OPERATIONAL,2023-12-12,data dictionary
+fact_project,8,due_date,date,YYYY-MM-DD,yes,,,,,Latest batch due date,SYNTHETIC_OPERATIONAL,2024-01-01,data dictionary
+fact_project,9,delivered_date,date,YYYY-MM-DD,no,,,,,Date the last batch was delivered; null if active,SYNTHETIC_OPERATIONAL,2024-01-02,data dictionary
+fact_project,10,status,enum,one of the allowed values (exact spelling),yes,,,ACTIVE|COMPLETED,,Project status at the as-of date,SYNTHETIC_OPERATIONAL,COMPLETED,data dictionary
+fact_project,11,est_pm_hours,float,decimal number,yes,,,,,"Estimated project-management hours, spread over start..due for utilisation",SYNTHETIC_OPERATIONAL,99.8,data dictionary
+bridge_payment_invoice,1,payment_id,string,text,yes,foreign key,fact_payment.payment_id,,,Payment,SYNTHETIC_IDENTIFIER,PAY-000001,data dictionary
+bridge_payment_invoice,2,invoice_line_id,string,text,yes,foreign key,fact_invoice_line.invoice_line_id,,,Invoice line,SYNTHETIC_IDENTIFIER,INVL-000093,data dictionary
+bridge_payment_invoice,3,allocated_original,money,"decimal, 2 places, USD unless the column name says otherwise",yes,,,,,Allocated amount in currency,SYNTHETIC_FINANCIAL,28.75,data dictionary
+bridge_payment_invoice,4,allocated_usd,money,"decimal, 2 places, USD unless the column name says otherwise",yes,,,,,Allocated amount in USD,SYNTHETIC_FINANCIAL,31.05,data dictionary
+fact_opportunity_stage_event,1,event_id,string,text,yes,primary key,,,,Event ID,SYNTHETIC_IDENTIFIER,EVT-000001,data dictionary
+fact_opportunity_stage_event,2,opportunity_id,string,text,yes,foreign key,fact_opportunity.opportunity_id,,,Opportunity,SYNTHETIC_IDENTIFIER,OPP-0001,data dictionary
+fact_opportunity_stage_event,3,stage,enum,one of the allowed values (exact spelling),yes,,,LEAD|QUALIFIED|PROPOSAL|NEGOTIATION|CLOSED_WON|CLOSED_LOST,,Stage entered,SYNTHETIC_OPERATIONAL,LEAD,data dictionary
+fact_opportunity_stage_event,4,entered_date,date,YYYY-MM-DD,yes,,,,,Date stage was entered,SYNTHETIC_OPERATIONAL,2023-10-02,data dictionary
+fact_translation_batch,1,batch_id,string,text,yes,primary key,,,,Batch ID (TRB-######),SYNTHETIC_IDENTIFIER,TRB-000001,data dictionary
+fact_translation_batch,2,project_id,string,text,yes,foreign key,fact_project.project_id,,,Project,SYNTHETIC_IDENTIFIER,PRJ-000001,data dictionary
+fact_translation_batch,3,lp_id,string,text,yes,foreign key,dim_language_pair.lp_id,,,Language pair,SYNTHETIC_IDENTIFIER,LP-12,data dictionary
+fact_translation_batch,4,workflow_id,enum,one of the allowed values (exact spelling),yes,foreign key,dim_workflow_type.workflow_id,HT|MTPE|AIR,,Workflow used,SYNTHETIC_IDENTIFIER,HT,data dictionary
+fact_translation_batch,5,cat_tool,enum,one of the allowed values (exact spelling),yes,,,CAT_A|CAT_B|CAT_C|CAT_D,,Generic CAT tool label,SYNTHETIC_OPERATIONAL,CAT_B,data dictionary
+fact_translation_batch,6,words_total,int,whole number,yes,,,,,Eligible source words in the batch,SYNTHETIC_OPERATIONAL,55419,data dictionary
+fact_translation_batch,7,tm_match_words,int,whole number,yes,,,,,Words covered by translation-memory matches (<= words_total),SYNTHETIC_OPERATIONAL,13277,data dictionary
+fact_translation_batch,8,start_date,date,YYYY-MM-DD,yes,,,,,Start date,SYNTHETIC_OPERATIONAL,2023-12-12,data dictionary
+fact_translation_batch,9,due_date,date,YYYY-MM-DD,yes,,,,,Due date (SLA),SYNTHETIC_OPERATIONAL,2024-01-01,data dictionary
+fact_translation_batch,10,delivered_date,date,YYYY-MM-DD,no,,,,,Delivery date; null if in progress,SYNTHETIC_OPERATIONAL,2024-01-02,data dictionary
+fact_translation_batch,11,status,enum,one of the allowed values (exact spelling),yes,,,IN_PROGRESS|DELIVERED,,Batch status at as-of,SYNTHETIC_OPERATIONAL,DELIVERED,data dictionary
+fact_translation_batch,12,stage,enum,one of the allowed values (exact spelling),yes,,,TRANSLATION|EDITING|PROOFREADING|QA|DELIVERY,,Current production stage (delivered batches = DELIVERY),SYNTHETIC_OPERATIONAL,DELIVERY,data dictionary
+fact_translation_batch,13,pct_complete,fraction,decimal 0 to 1 (0.25 = 25%),yes,,,,,Progress 0..1,SYNTHETIC_OPERATIONAL,1.0,data dictionary
+fact_translation_batch,14,client_rejected,bool,true or false,yes,,,,,True if the client rejected the delivery (delivered batches only),SYNTHETIC_OPERATIONAL,false,data dictionary
+fact_ai_workflow_batch,1,ai_batch_id,string,text,yes,primary key,,,,AI batch ID (AIB-######),SYNTHETIC_IDENTIFIER,AIB-000001,data dictionary
+fact_ai_workflow_batch,2,batch_id,string,text,yes,foreign key,fact_translation_batch.batch_id,,,Batch (must be an AI-touched workflow),SYNTHETIC_IDENTIFIER,TRB-000005,data dictionary
+fact_ai_workflow_batch,3,engine_category,enum,one of the allowed values (exact spelling),yes,,,GENERIC_NMT|CUSTOM_NMT|LLM_BASED|HYBRID_NMT_LLM,,"GENERIC engine category (synthetic, not a vendor)",SYNTHETIC_OPERATIONAL,GENERIC_NMT,data dictionary
+fact_ai_workflow_batch,4,content_sensitivity,enum,one of the allowed values (exact spelling),yes,,,LOW|MEDIUM|HIGH,,Content sensitivity tier,SYNTHETIC_OPERATIONAL,MEDIUM,data dictionary
+fact_ai_workflow_batch,5,mtqe_score,fraction,decimal 0 to 1 (0.25 = 25%),yes,,,,,Mean machine-translation quality-estimation score (QE scale 0..1; not BLEU or COMET),SYNTHETIC_OPERATIONAL,0.9341,data dictionary
+fact_ai_workflow_batch,6,mtqe_accepted_words,int,whole number,yes,,,,,Words whose segment QE score >= the acceptance threshold,SYNTHETIC_OPERATIONAL,3792,data dictionary
+fact_ai_workflow_batch,7,edit_distance,fraction,decimal 0 to 1 (0.25 = 25%),yes,,,,,"Normalised post-edit distance (0 = no edits, 1 = full rewrite); not a QE score",SYNTHETIC_OPERATIONAL,0.03,data dictionary
+fact_ai_workflow_batch,8,observed_words_per_hour,float,decimal number,yes,,,,,Synthetic observed effective throughput,SYNTHETIC_OPERATIONAL,774.1,data dictionary
+fact_ai_workflow_batch,9,est_hours_saved,float,decimal number,yes,,,,words/baseline_wph - words/observed_wph,Estimated hours saved vs baseline (an estimate),SYNTHETIC_OPERATIONAL,5.69,data dictionary
+fact_ai_workflow_batch,10,tooling_cost_usd,money,"decimal, 2 places, USD unless the column name says otherwise",yes,,,,,Synthetic tooling cost,SYNTHETIC_FINANCIAL,13.6,data dictionary
+fact_ai_workflow_batch,11,est_cost_saved_usd,money,"decimal, 2 places, USD unless the column name says otherwise",yes,,,,est_hours_saved * review_hourly_cost - tooling_cost,Estimated net cost impact (an estimate),SYNTHETIC_FINANCIAL,168.61,data dictionary
+fact_quality_evaluation,1,evaluation_id,string,text,yes,primary key,,,,Evaluation ID (QE-#####),SYNTHETIC_IDENTIFIER,QE-00001,data dictionary
+fact_quality_evaluation,2,batch_id,string,text,yes,foreign key,fact_translation_batch.batch_id,,,Evaluated batch,SYNTHETIC_IDENTIFIER,TRB-000006,data dictionary
+fact_quality_evaluation,3,resource_id,string,text,yes,foreign key,dim_resource.resource_id,,,Evaluated linguist (anonymised),SYNTHETIC_IDENTIFIER,RES-0028,data dictionary
+fact_quality_evaluation,4,evaluator_code,string,text,yes,,,,,Anonymised evaluator code,SYNTHETIC_IDENTIFIER,EV-10,data dictionary
+fact_quality_evaluation,5,eval_date,date,YYYY-MM-DD,yes,,,,,Evaluation date,SYNTHETIC_OPERATIONAL,2024-01-09,data dictionary
+fact_quality_evaluation,6,framework,enum,one of the allowed values (exact spelling),yes,,,ILLUSTRATIVE_MQM_STYLE,,Single illustrative framework,SYNTHETIC_OPERATIONAL,ILLUSTRATIVE_MQM_STYLE,data dictionary
+fact_quality_evaluation,7,sample_words,int,whole number,yes,,,,,Words sampled,SYNTHETIC_OPERATIONAL,1000,data dictionary
+fact_quality_evaluation,8,critical_count,int,whole number,yes,,,,,Critical errors,SYNTHETIC_OPERATIONAL,0,data dictionary
+fact_quality_evaluation,9,major_count,int,whole number,yes,,,,,Major errors,SYNTHETIC_OPERATIONAL,0,data dictionary
+fact_quality_evaluation,10,minor_count,int,whole number,yes,,,,,Minor errors,SYNTHETIC_OPERATIONAL,2,data dictionary
+fact_quality_evaluation,11,score,float,decimal number,yes,,,,"max(0, 100 - (minor*1 + major*5 + critical*25) * 1000 / sample_words)",Quality score 0-100,SYNTHETIC_OPERATIONAL,98.0,data dictionary
+fact_quality_evaluation,12,outcome,enum,one of the allowed values (exact spelling),yes,,,PASS|FAIL,,PASS if score >= 90 and critical = 0,SYNTHETIC_OPERATIONAL,PASS,data dictionary
+fact_quality_evaluation,13,dispute_status,enum,one of the allowed values (exact spelling),yes,,,NONE|OPEN|RESOLVED,,Dispute state,SYNTHETIC_OPERATIONAL,NONE,data dictionary
+fact_quality_evaluation,14,corrective_action,enum,one of the allowed values (exact spelling),yes,,,COACHING|RETRAINING|TERMINOLOGY_UPDATE|PROCESS_FIX|NONE_REQUIRED,,Corrective action,SYNTHETIC_OPERATIONAL,NONE_REQUIRED,data dictionary
+fact_quality_evaluation,15,corrective_status,enum,one of the allowed values (exact spelling),yes,,,NA|OPEN|CLOSED,,Corrective action state,SYNTHETIC_OPERATIONAL,NA,data dictionary
+fact_resource_assignment,1,assignment_id,string,text,yes,primary key,,,,Assignment ID,SYNTHETIC_IDENTIFIER,ASG-000001,data dictionary
+fact_resource_assignment,2,batch_id,string,text,yes,foreign key,fact_translation_batch.batch_id,,,Batch,SYNTHETIC_IDENTIFIER,TRB-000001,data dictionary
+fact_resource_assignment,3,resource_id,string,text,yes,foreign key,dim_resource.resource_id,,,Assigned linguist,SYNTHETIC_IDENTIFIER,RES-0063,data dictionary
+fact_resource_assignment,4,role,enum,one of the allowed values (exact spelling),yes,,,TRANSLATOR|EDITOR|POST_EDITOR|REVIEWER,,Role,SYNTHETIC_OPERATIONAL,TRANSLATOR,data dictionary
+fact_resource_assignment,5,words_assigned,int,whole number,yes,,,,,Words covered by this assignment,SYNTHETIC_OPERATIONAL,33642,data dictionary
+fact_resource_assignment,6,assigned_date,date,YYYY-MM-DD,yes,,,,,Assignment date,SYNTHETIC_OPERATIONAL,2023-12-13,data dictionary
+fact_revenue_line,1,revenue_id,string,text,yes,primary key,,,,Revenue line ID (REV-######),SYNTHETIC_IDENTIFIER,REV-000001,data dictionary
+fact_revenue_line,2,client_id,string,text,yes,foreign key,dim_client.client_id,,,Client,SYNTHETIC_IDENTIFIER,CL-0001,data dictionary
+fact_revenue_line,3,project_id,string,text,no,foreign key,fact_project.project_id,,,Project (written lines),SYNTHETIC_IDENTIFIER,,
+fact_revenue_line,4,batch_id,string,text,no,foreign key,fact_translation_batch.batch_id,,,Batch (written lines),SYNTHETIC_IDENTIFIER,,
+fact_revenue_line,5,month_id,string,text,yes,foreign key,dim_date.month_id,,,Recognition month (delivery month for written; service month for interpretation),SYNTHETIC_IDENTIFIER,2024-01,data dictionary
+fact_revenue_line,6,service_line_id,enum,one of the allowed values (exact spelling),yes,foreign key,dim_service_line.service_line_id,TRANSLATION|LOCALIZATION|ALT_FORMAT|OPI|VRI|ONSITE,,Exclusive service line,SYNTHETIC_IDENTIFIER,ONSITE,data dictionary
+fact_revenue_line,7,lp_id,string,text,no,foreign key,dim_language_pair.lp_id,,,Language pair (written lines only),SYNTHETIC_IDENTIFIER,,
+fact_revenue_line,8,workflow_id,enum,one of the allowed values (exact spelling),no,,,HT|MTPE|AIR,,Workflow (written lines only),SYNTHETIC_IDENTIFIER,,
+fact_revenue_line,9,units,int,whole number,yes,,,,,Words (written) or fulfilled minutes (interpretation),SYNTHETIC_OPERATIONAL,780,data dictionary
+fact_revenue_line,10,unit_type,enum,one of the allowed values (exact spelling),yes,,,WORD|MINUTE,,Unit type,SYNTHETIC_OPERATIONAL,MINUTE,data dictionary
+fact_revenue_line,11,price_per_unit_original,float,decimal number,yes,,,,,Price per unit in billing currency,SYNTHETIC_OPERATIONAL,1.79596,data dictionary
+fact_revenue_line,12,currency,enum,one of the allowed values (exact spelling),yes,,,USD|EUR|GBP,,Billing currency,SYNTHETIC_OPERATIONAL,USD,data dictionary
+fact_revenue_line,13,revenue_original,money,"decimal, 2 places, USD unless the column name says otherwise",yes,,,,,Recognised revenue in billing currency,SYNTHETIC_FINANCIAL,1400.85,data dictionary
+fact_revenue_line,14,fx_usd_per_unit,float,decimal number,yes,,,,,Fixed FX rate applied,SYNTHETIC_OPERATIONAL,1.0,data dictionary
+fact_revenue_line,15,revenue_usd,money,"decimal, 2 places, USD unless the column name says otherwise",yes,,,,"round_half_up(revenue_original * fx_usd_per_unit, 2)",Recognised revenue in USD (canonical),SYNTHETIC_FINANCIAL,1400.85,data dictionary
+fact_cost_line,1,cost_id,string,text,yes,primary key,,,,Cost line ID (COST-######),SYNTHETIC_IDENTIFIER,COST-000001,data dictionary
+fact_cost_line,2,month_id,string,text,yes,foreign key,dim_date.month_id,,,Cost month,SYNTHETIC_IDENTIFIER,2024-01,data dictionary
+fact_cost_line,3,cost_class,enum,one of the allowed values (exact spelling),yes,,,DIRECT|OPEX|DA,,"DIRECT, OPEX or DA",SYNTHETIC_OPERATIONAL,DIRECT,data dictionary
+fact_cost_line,4,cost_category,enum,one of the allowed values (exact spelling),yes,,,VENDOR_LINGUIST|INTERPRETER_PAY|MT_AI_TOOLING|PLATFORM_TELECOM|PM_DISPATCH_LABOR|SALES_MARKETING|TECHNOLOGY_PRODUCT|GENERAL_ADMIN|DEPRECIATION_AMORTIZATION,,Cost category,SYNTHETIC_OPERATIONAL,INTERPRETER_PAY,data dictionary
+fact_cost_line,5,revenue_id,string,text,no,foreign key,fact_revenue_line.revenue_id,,,Revenue line the direct cost is attributed to; null for OPEX/DA,SYNTHETIC_IDENTIFIER,REV-000001,data dictionary
+fact_cost_line,6,service_line_id,enum,one of the allowed values (exact spelling),no,foreign key,dim_service_line.service_line_id,TRANSLATION|LOCALIZATION|ALT_FORMAT|OPI|VRI|ONSITE,,Service line (direct costs),SYNTHETIC_IDENTIFIER,ONSITE,data dictionary
+fact_cost_line,7,amount_usd,money,"decimal, 2 places, USD unless the column name says otherwise",yes,,,,,Cost in USD (costs are USD-denominated in the demo),SYNTHETIC_FINANCIAL,751.76,data dictionary
+fact_quality_error,1,error_id,string,text,yes,primary key,,,,Error ID,SYNTHETIC_IDENTIFIER,ERR-000001,data dictionary
+fact_quality_error,2,evaluation_id,string,text,yes,foreign key,fact_quality_evaluation.evaluation_id,,,Evaluation,SYNTHETIC_IDENTIFIER,QE-00001,data dictionary
+fact_quality_error,3,category,enum,one of the allowed values (exact spelling),yes,,,ACCURACY|FLUENCY|TERMINOLOGY|STYLE|LOCALE_CONVENTION|DESIGN_FORMAT|OMISSION_ADDITION,,Error category,SYNTHETIC_OPERATIONAL,ACCURACY,data dictionary
+fact_quality_error,4,severity,enum,one of the allowed values (exact spelling),yes,,,MINOR|MAJOR|CRITICAL,,Severity,SYNTHETIC_OPERATIONAL,MINOR,data dictionary

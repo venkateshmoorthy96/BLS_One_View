@@ -1,0 +1,4 @@
+workflow_id,workflow_name,is_ai_touched,description
+HT,Human translation (TEP),false,"Translate, edit and proofread by linguists"
+MTPE,Machine translation post-editing,true,Machine output post-edited by a linguist
+AIR,AI-assisted review,true,Machine output with a lightweight linguist review

@@ -1,0 +1,13 @@
+key,value
+dataset_version,2026.10.1
+generator_version,1.0.0
+schema_version,1.0.0
+synthetic,true
+seed,20261029
+as_of,2026-09-30
+first_month,2024-01
+last_month,2026-09
+base_currency,USD
+fx_rate_type,FIXED_ILLUSTRATIVE
+fx_rate_version,DEMO-FX-2026-09
+disclaimer,All records are synthetic and fictional. Nothing here is BIG Language Solutions data.

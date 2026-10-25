@@ -1,0 +1,1 @@
+﻿telemetry_id,connector_id,date,monitored_minutes,up_minutes,requests,errors_4xx,errors_5xx,errors_timeout,records_ingested,p50_ms,p95_ms,p99_ms

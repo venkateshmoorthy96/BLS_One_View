@@ -1,0 +1,4 @@
+set_id,set_name,ai_adoption_delta,price_adjustment,vendor_inflation,volume_growth,formula_version,description
+SCN-BASELINE,Baseline (trailing 12 months),0.0,0.0,0.0,0.0,SCN-F1.0,Illustrative scenario preset - not a forecast
+SCN-CONSERVATIVE,Conservative preset,0.03,-0.02,0.08,-0.05,SCN-F1.0,Illustrative scenario preset - not a forecast
+SCN-OPTIMISTIC,Optimistic preset,0.15,0.03,0.02,0.12,SCN-F1.0,Illustrative scenario preset - not a forecast
